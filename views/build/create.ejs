@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/style/base.css" />
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/scripts/base.js"></script>
+		<script src="/scripts/create.js"></script>
+		<title>Lemon-DM</title>
+	</head>
+	<body>
+		<form onsubmit="build(); return false" class="vertical-container" style="align-items: start; height:65vh; overflow-y:scroll;">
+			<a href="/build">Back</a>
+			<h3>New build</h3>
+			<hr />
+			<label for="name">Name </label>
+			<input id="name" name="name" pattern="[^: ]+" />
+            <br>
+			<label for="version">Version </label>
+			<input id="version" name="version" pattern="[^: ]+" />
+            <br>
+			<label for="gitUrl"></label>
+				Git SSH or HTTP/HTTPS URI (example: "git@github.com:UserName/RepositoryName.git#branchName")
+			</label>
+            <input id="gitUrl" name="gitUrl"/>
+            <p  style="font-size: 0.7rem; color:rgb(88, 88, 88);">Note: if this is a private GitHub repository, the only way you're gonna be able to deploy is by using the SSH URI and adding <a href="/sshPublicKey">this applications SSH public key</a> to your "Deployment Keys".</p>
+            <br>
+            <input type="submit" style="padding:10px" value="Build">
+		</form>
+        <iframe id="terminal" style="
+			height: 30vh;
+			width: 100vw;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			margin: 0;
+			box-sizing: border-box;">
+		</iframe>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TERMINAL</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/scripts/base.js"></script>
+		<script src="/scripts/terminal.js"></script>
+	</head>
+	<body
+		onload="init()"
+		style="
+			background-color: darkslategrey;
+			color: lightgray;
+			width: 95%;
+			height: 90vh;
+			font-family: 'Courier New', Courier, monospace;
+		"
+	>
+		<textarea
+			readonly
+			id="terminal"
+			style="
+				resize: none;
+				overflow: visible;
+				background: none;
+				border: none;
+				font: inherit;
+				color: inherit;
+				height: 100%;
+				width: 100%;
+			"
+		>
+		</textarea>
+		<div style="position: fixed; top: 0; right: 0">
+			<button style="border: none" onclick="clearTerminal()"> Clear </button>
+			<button style="border: none" onclick="download()">Download</button>
+		</div>
+	</body>
+</html>

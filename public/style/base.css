@@ -1,0 +1,42 @@
+.vertical-container{
+    display:flex;
+    flex-direction: column;
+    padding:5px;
+    margin: 5px;
+    overflow-y: scroll;
+}
+
+.table-container{
+    border-collapse: collapse;
+}
+
+.table-container th {
+    padding:5px;
+}
+
+.table-container td {
+    text-align: center;
+    padding: 5px;
+}
+
+.table-container tr{
+    margin: 5px;
+    border: solid;
+    border-width: 1px 0;
+}
+
+.attribute{
+    margin:5px
+}
+
+.horizontal-container{
+    display:flex;
+    flex-direction: row;
+    padding:5px;
+    margin: 5px;
+    overflow-y: scroll;
+}
+
+.border1{
+    border: 1px solid black;
+}
