@@ -1,18 +1,23 @@
-module.exports = (socket) => {
+const docker = require("../docker");
+const { terminals, Terminal } = require("../terminal");
+
+const emitters = (io) => {};
+const listeners = (socket) => {
 	socket.on("createBuild", async (buildData) => {
-		const build = docker.ignoreError(
+		docker.ignoreError(
 			docker.createBuild,
-			[buildData.name, buildData.version, buildData.gitUrl],
+			[buildData.name, buildData.branch],
 			socket.terminal
 		);
 	});
-
-	socket.on("buildData", async (buildData, callback) => {
-		const build = await docker.ignoreError(
-			docker.getBuild,
-			[buildData.name, buildData.version],
+	socket.on("getBranches", async (name, callback) => {
+		const branches = await docker.ignoreError(
+			docker.getBranches,
+			[name],
 			socket.terminal
 		);
-		callback(build);
+		callback(branches);
 	});
 };
+
+module.exports = { listeners, emitters };

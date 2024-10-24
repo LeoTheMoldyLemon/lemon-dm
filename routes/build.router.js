@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
 	res.render("build", { builds });
 });
 
-router.get("/create", (req, res) => {
-	res.render("build/create");
+router.get("/create", async (req, res) => {
+	res.render("build/create", { projects: await docker.getProjects() });
 });
 
 module.exports = router;

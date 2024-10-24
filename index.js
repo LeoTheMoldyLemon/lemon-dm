@@ -22,6 +22,9 @@ const buildSocket = require("./routes/build.socket");
 const deploymentRouter = require("./routes/deployment.router");
 const deploymentSocket = require("./routes/deployment.socket");
 
+buildSocket.emitters(io);
+deploymentSocket.emitters(io);
+
 app.use("/build", buildRouter);
 app.use("/deployment", deploymentRouter);
 app.get("/sshPublicKey", (req, res) => {
@@ -46,8 +49,8 @@ io.on("connection", (socket) => {
 		callback(terminal.id);
 	});
 
-	buildSocket(socket);
-	deploymentSocket(socket);
+	buildSocket.listeners(socket);
+	deploymentSocket.listeners(socket);
 });
 
 function startServer() {
@@ -59,18 +62,5 @@ function startServer() {
 async function main() {
 	startServer();
 }
+
 main();
-
-/*
-build needs:
-    id
-    name
-    version
-    git repository
-    branch
-
-deployment needs:
-    id
-    build_id
-    ports
-*/

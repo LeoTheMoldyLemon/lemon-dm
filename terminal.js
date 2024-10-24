@@ -15,6 +15,10 @@ class Terminal {
 	connect(socket) {
 		this.socket = socket;
 		this.socket.emit("buffer", this.buffer);
+		this.socket.on("disconnect", () => {
+			if (this.kill) this.kill();
+			delete terminals[this.id];
+		});
 	}
 	constructor() {
 		this.id = uuidv4();

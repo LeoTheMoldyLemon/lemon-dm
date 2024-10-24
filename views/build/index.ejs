@@ -19,25 +19,25 @@
 				<tbody id="build-table">
 					<tr>
 						<th>App Name</th>
-						<th>Version</th>
+						<th>Branch</th>
 						<th>Created At (UTC)</th>
 						<th></th>
 					</tr>
 					<% for(const build of builds){%>
 					<tr>
-						<td><%=build.name%></td>
-						<td><%=build.version%></td>
+						<td><%=build.Repository%></td>
+						<td><%=build.Tag%></td>
 						<td>
 							<input
 								readonly
 								type="datetime-local"
 								value="<%=
-								build.image.CreatedAt.toISOString().slice(0, 16) %>"
+								build.CreatedAt.toISOString().slice(0, 16) %>"
 							/>
 						</td>
 						<td>
 							<a
-								href="/deployment?name=<%=build.name%>&version=<%=build.version%>"
+								href="/deployment?name=<%=build.Repository%>&branch=<%=build.Tag%>"
 							>
 								Deployments
 							</a>
