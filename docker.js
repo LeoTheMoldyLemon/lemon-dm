@@ -56,22 +56,22 @@ async function getProjects() {
 	return projects;
 }
 
-async function createProject(name, gitUrl) {
+async function createProject(name, gitUrl, dockerfilePath) {
 	const projects = JSON.parse(fs.readFileSync("./projects.json"));
 
 	if (projects[name]) throw new Error(`Project with that name already exists.`);
 
-	projects[name] = { name, gitUrl };
+	projects[name] = { name, gitUrl, dockerfilePath };
 
 	fs.writeFileSync(JSON.stringify(projects));
 }
 
-async function editProject(name, gitUrl) {
+async function editProject(name, gitUrl, dockerfilePath) {
 	const projects = JSON.parse(fs.readFileSync("./projects.json"));
 
 	if (!projects[name]) throw new Error(`Project named ${name} that name doesn't exists.`);
 
-	projects[name] = { name, gitUrl };
+	projects[name] = { name, gitUrl, dockerfilePath };
 
 	fs.writeFileSync(JSON.stringify(projects));
 }
@@ -135,7 +135,14 @@ async function createBuild(name, branch, logger) {
 	const project = projects[name];
 	await cli.run(
 		"docker",
-		["build", "-t", `${name}:${branch}`, `${project.gitUrl}#${branch}`],
+		[
+			"build",
+			"-t",
+			`${name}:${branch}`,
+			`${project.gitUrl}#${branch}`,
+			"-f",
+			`${project.dockerfilePath}/Dockerfile`,
+		],
 		{ logger }
 	);
 }

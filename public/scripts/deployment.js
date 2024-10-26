@@ -46,8 +46,10 @@ async function init() {
 			build = buildData;
 			document.getElementById("build-name").innerHTML = build.Repository;
 			document.getElementById("build-branch").innerHTML = build.Tag;
-			document.getElementById("build-createdAt").innerHTML =
-				build.CreatedAt.toLocaleString();
+			document.getElementById("build-createdAt").value = build.CreatedAt.slice(
+				0,
+				16
+			);
 
 			toggleAllButtons(true);
 		}
@@ -92,8 +94,7 @@ function applyDeploymentData(node, deploymentData) {
 	node.id = deploymentData.ID;
 	node.querySelector(".deployment-id").innerHTML = deploymentData.ID;
 	node.querySelector(".deployment-state").innerHTML = deploymentData.State;
-	node.querySelector(".deployment-createdAt").innerHTML =
-		deploymentData.CreatedAt.toLocaleString();
+	node.querySelector(".deployment-createdAt").value = deploymentData.CreatedAt.slice(0, 16);
 	node.querySelector(".deployment-ports").innerHTML =
 		deploymentData.Ports == "" ? "None" : deploymentData.Ports;
 

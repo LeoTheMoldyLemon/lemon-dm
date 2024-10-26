@@ -23,7 +23,7 @@
 				<tr>
 					<td id="build-name">loading...</td>
 					<td id="build-branch">loading...</td>
-					<td id="build-createdAt">loading...</td>
+					<td><input id="build-createdAt" type="datetime-local" readonly/></td>
 				</tr>
 				<tr>
 					<td><button onclick="rebuild()">Rebuild</button></td>
@@ -65,9 +65,9 @@
 		</div>
 		<template id="deployment-wrapper-template">
 			<tr>
-				<td class="deployment-id">Test1</td>
-				<td class="deployment-state">running</td>
-				<td class="deployment-createdAt">some date</td>
+				<td class="deployment-id">loading...</td>
+				<td class="deployment-state">loading...</td>
+				<td ><input class="deployment-createdAt" type="datetime-local" readonly/></td>
 				<td>
 					<details>
 						<summary>reveal</summary>

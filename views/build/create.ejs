@@ -33,11 +33,12 @@
 			>
 				Reload branches
 			</button>
-			<select id="branch" name="branch" required>
+			<input id="branch" name="branch" required list="branch-list">
 				<option selected disabled value="Select a branch">
 					Select a branch
 				</option>
-			</select>
+			</input>
+			<datalist id="branch-list"></datalist>
 			<br />
 			<p style="font-size: 0.7rem; color: rgb(88, 88, 88)"
 				>Note: if this is a private GitHub repository, the only way you're

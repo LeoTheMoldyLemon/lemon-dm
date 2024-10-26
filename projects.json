@@ -1,1 +1,17 @@
-{"docker-test": {"name": "docker-test","gitUrl": "git@github.com:LeoTheMoldyLemon/docker-test.git"}}
+{
+	"docker-test": {
+		"name": "docker-test",
+		"gitUrl": "git@github.com:LeoTheMoldyLemon/docker-test.git",
+		"dockerfilePath": "."
+	},
+	"triolingo-frontend": {
+		"name": "triolingo-frontend",
+		"gitUrl": "git@github.com:LeoTheMoldyLemon/docker-test.git",
+		"dockerfilePath": "./frontend/deploy"
+	},
+	"triolingo-backend": {
+		"name": "triolingo-backend",
+		"gitUrl": "git@github.com:LeoTheMoldyLemon/docker-test.git",
+		"dockerfilePath": "./backend/deploy"
+	}
+}
