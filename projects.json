@@ -6,12 +6,12 @@
 	},
 	"triolingo-frontend": {
 		"name": "triolingo-frontend",
-		"gitUrl": "git@github.com:LeoTheMoldyLemon/docker-test.git",
+		"gitUrl": "git@github.com:Progi-Petrovi/triolingo.git",
 		"dockerfilePath": "./frontend/deploy"
 	},
 	"triolingo-backend": {
 		"name": "triolingo-backend",
-		"gitUrl": "git@github.com:LeoTheMoldyLemon/docker-test.git",
+		"gitUrl": "git@github.com:Progi-Petrovi/triolingo.git",
 		"dockerfilePath": "./backend/deploy"
 	}
 }
