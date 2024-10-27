@@ -3,10 +3,16 @@ const { terminals, Terminal } = require("../terminal");
 
 class EventEmitter {
 	log(data) {
-		this.io.to(this.roomId).emit(this.logEventName, JSON.parse(data));
+		try {
+			data = JSON.parse(data);
+		} catch (e) {}
+		this.io.to(this.roomId).emit(this.logEventName, data);
 	}
 	error(data) {
-		this.io.to(this.roomId).emit(this.errorEventName, JSON.parse(data));
+		try {
+			data = JSON.parse(data);
+		} catch (e) {}
+		this.io.to(this.roomId).emit(this.errorEventName, data);
 	}
 	constructor(io, roomId, logEventName, errorEventName) {
 		this.roomId = roomId;
