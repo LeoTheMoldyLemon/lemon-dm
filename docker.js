@@ -133,13 +133,14 @@ async function getBuild(name, branch, logger) {
 async function createBuild(name, branch, logger) {
 	const projects = await getProjects();
 	const project = projects[name];
+
 	await cli.run(
 		"docker",
 		[
 			"build",
 			"-t",
-			`${name}:${branch}`,
-			`${project.gitUrl}#${branch.replaceAll("/", "__")}`,
+			`${name}:${branch.replaceAll("/", "__")}`,
+			`${project.gitUrl}#${branch}`,
 			"-f",
 			`${project.dockerfilePath}/Dockerfile`,
 		],
