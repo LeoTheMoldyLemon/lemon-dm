@@ -139,7 +139,7 @@ async function createBuild(name, branch, logger) {
 			"build",
 			"-t",
 			`${name}:${branch}`,
-			`${project.gitUrl}#${branch.replace("/", "__")}`,
+			`${project.gitUrl}#${branch.replaceAll("/", "__")}`,
 			"-f",
 			`${project.dockerfilePath}/Dockerfile`,
 		],
