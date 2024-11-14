@@ -116,6 +116,8 @@ function applyDeploymentData(node, deploymentData) {
 
 function createDeployment() {
 	const portsListStr = document.getElementById("ports").value;
+	const envVarsStr = document.getElementById("env-vars").value;
+
 	const portsList = [];
 	for (const portsStr of portsListStr.split(";")) {
 		const hostPort = parseInt(portsStr.split(":")[0]);
@@ -123,7 +125,16 @@ function createDeployment() {
 		if (hostPort && containerPort)
 			portsList.push({ host: hostPort, container: containerPort });
 	}
-	socket.emit("createDeployment", { name: build.Repository, branch: build.Tag }, portsList);
+
+	const envVars = [];
+	for (const envVar of envVars.split("\n")) if (envVar != "") envVars.push(envVar);
+
+	socket.emit(
+		"createDeployment",
+		{ name: build.Repository, branch: build.Tag },
+		portsList,
+		envVars
+	);
 }
 
 function startDeployment(id) {

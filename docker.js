@@ -167,7 +167,7 @@ async function removeAllDeployments(name, branch, logger) {
 	);
 }
 
-async function createDeployment(name, branch, ports = [], logger) {
+async function createDeployment(name, branch, ports = [], envVars = [], logger) {
 	const logCollector = new cli.streamCollector();
 
 	const portList = [];
@@ -176,15 +176,25 @@ async function createDeployment(name, branch, ports = [], logger) {
 		portList.push(`${portPair.host}:${portPair.container}`);
 	}
 
-	await cli.run("docker", ["container", "create", ...portList, `${name}:${branch}`], {
-		logger: {
-			log: (data) => {
-				logCollector.log(data);
-				logger?.log(data);
+	const envList = [];
+	for (const envVar of envVars) {
+		envList.push("-e");
+		envList.push(envVar);
+	}
+
+	await cli.run(
+		"docker",
+		["container", "create", ...portList, ...envList, `${name}:${branch}`],
+		{
+			logger: {
+				log: (data) => {
+					logCollector.log(data);
+					logger?.log(data);
+				},
+				error: logger?.error,
 			},
-			error: logger?.error,
-		},
-	});
+		}
+	);
 
 	//docker logs the container ID after creating it
 	return logCollector.logData[0];

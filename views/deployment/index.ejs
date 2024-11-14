@@ -10,9 +10,9 @@
 		<title>Lemon-DM</title>
 	</head>
 	<body onload="init()">
+		<a href="/build">Back</a>
 		<hr />
-		<div class="vertical-container" style="height: 65vh; overflow-y: scroll;">
-			<a href="/build">Back</a>
+		<div class="vertical-container" style="height: 60vh; overflow-y: scroll;">
 			<h3>Build</h3>
 			<table class="border1 table-container">
 				<tr>
@@ -46,6 +46,10 @@
 					Ports (write in format "HOST_PORT:CONTAINER_PORT;HOST_PORT:CONTAINER_PORT", don't forget to EXPOSE your ports in the Dockerfile):
 				</label>
 				<input id="ports" name="ports" style="width: 90%;" pattern="([0-9]+:[0-9]+;)*([0-9]+:[0-9]+)|"/>
+				<label for="env-vars"></label>
+					Enviroment variables (write in format VAR_NAME=VAR_VALUE, seperate each variable into its own line):
+				</label>
+				<textarea id="env-vars" name="env-vars" style="width: 90%;" pattern="([0-9]+:[0-9]+;)*([0-9]+:[0-9]+)|" colls="50" rows="3"></textarea>
 				<input type="submit" style="padding:10px" value="Create">
 			</form>
 			<h3>Deployments</h3>

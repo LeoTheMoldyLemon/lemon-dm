@@ -33,9 +33,13 @@ class streamCollector {
 
 async function run(command, args = [], { logger, ignoreCode, ignoreError, controller } = {}) {
 	let errOutput = [];
+	if (logger?.error) logger.error(command + " " + args.join(" "));
+
 	let streamReader = promisifyStream(logger?.log, logger?.error, errOutput);
 	const spawnedProcess = childProcess.spawn(command, args, { shell: true });
+
 	if (controller) controller.kill = spawnedProcess.kill;
+
 	await streamReader(spawnedProcess)
 		.catch((error) => {
 			if (!ignoreError)

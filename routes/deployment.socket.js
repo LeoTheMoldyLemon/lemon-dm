@@ -130,10 +130,10 @@ const listeners = (socket) => {
 		);
 	});
 
-	socket.on("createDeployment", async (buildData, ports) => {
+	socket.on("createDeployment", async (buildData, ports, envVars) => {
 		await docker.ignoreError(
 			docker.createDeployment,
-			[buildData.name, buildData.branch, ports],
+			[buildData.name, buildData.branch, ports, envVars],
 			socket.terminal
 		);
 	});
