@@ -130,7 +130,7 @@ async function getBuild(name, branch, logger) {
 	return build;
 }
 
-async function createBuild(name, branch, logger) {
+async function createBuild(name, branch, args, logger) {
 	const projects = await getProjects();
 	const project = projects[name];
 
@@ -138,6 +138,7 @@ async function createBuild(name, branch, logger) {
 		"docker",
 		[
 			"build",
+			...(args?.split(" ") ?? []),
 			"-t",
 			`${name}:${branch.replaceAll("/", "__")}`,
 			`${project.gitUrl}#${branch}`,
@@ -167,7 +168,7 @@ async function removeAllDeployments(name, branch, logger) {
 	);
 }
 
-async function createDeployment(name, branch, ports = [], envVars = [], logger) {
+async function createDeployment(name, branch, ports = [], envVars = [], args = "", logger) {
 	const logCollector = new cli.streamCollector();
 
 	const portList = [];
@@ -184,7 +185,14 @@ async function createDeployment(name, branch, ports = [], envVars = [], logger) 
 
 	await cli.run(
 		"docker",
-		["container", "create", ...portList, ...envList, `${name}:${branch}`],
+		[
+			"container",
+			"create",
+			...portList,
+			...envList,
+			...(args?.split(" ") ?? []),
+			`${name}:${branch}`,
+		],
 		{
 			logger: {
 				log: (data) => {

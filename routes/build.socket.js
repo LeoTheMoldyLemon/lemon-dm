@@ -6,7 +6,7 @@ const listeners = (socket) => {
 	socket.on("createBuild", async (buildData) => {
 		docker.ignoreError(
 			docker.createBuild,
-			[buildData.name, buildData.branch],
+			[buildData.name, buildData.branch, buildData.args],
 			socket.terminal
 		);
 	});

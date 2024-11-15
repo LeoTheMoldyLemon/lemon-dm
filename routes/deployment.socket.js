@@ -97,7 +97,11 @@ const listeners = (socket) => {
 			socket.terminal
 		);
 		try {
-			await docker.createBuild(buildData.name, buildData.branch, socket.terminal);
+			await docker.createBuild(
+				buildData.name,
+				buildData.branch.replace("__", "/"),
+				socket.terminal
+			);
 			callback(true);
 		} catch (e) {
 			socket.terminal.log(e);
@@ -130,10 +134,10 @@ const listeners = (socket) => {
 		);
 	});
 
-	socket.on("createDeployment", async (buildData, ports, envVars) => {
+	socket.on("createDeployment", async (buildData, ports, envVars, args) => {
 		await docker.ignoreError(
 			docker.createDeployment,
-			[buildData.name, buildData.branch, ports, envVars],
+			[buildData.name, buildData.branch, ports, envVars, args],
 			socket.terminal
 		);
 	});

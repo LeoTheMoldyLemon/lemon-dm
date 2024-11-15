@@ -117,6 +117,7 @@ function applyDeploymentData(node, deploymentData) {
 function createDeployment() {
 	const portsListStr = document.getElementById("ports").value;
 	const envVarsStr = document.getElementById("env-vars").value;
+	const argsStr = document.getElementById("args").value.replace("\n", " ").trim();
 
 	const portsList = [];
 	for (const portsStr of portsListStr.split(";")) {
@@ -127,13 +128,14 @@ function createDeployment() {
 	}
 
 	const envVars = [];
-	for (const envVar of envVars.split("\n")) if (envVar != "") envVars.push(envVar);
+	for (const envVar of envVarsStr.split("\n")) if (envVar != "") envVars.push(envVar);
 
 	socket.emit(
 		"createDeployment",
 		{ name: build.Repository, branch: build.Tag },
 		portsList,
-		envVars
+		envVars,
+		argsStr
 	);
 }
 
@@ -196,9 +198,12 @@ function deploymentChangeState(node, state) {
 			togglePauseBtn.disabled = false;
 			toggleStartBtn.disabled = false;
 			togglePauseBtn.innerHTML = "Pause";
-			togglePauseBtn.onclick = () => auseDeployment(toggleStartBtn.name);
+			togglePauseBtn.onclick = () => pauseDeployment(toggleStartBtn.name);
+			console.log(toggleStartBtn.onclick);
 			toggleStartBtn.innerHTML = "Stop";
-			togglePauseBtn.onclick = () => stopDeployment(toggleStartBtn.name);
+			toggleStartBtn.onclick = () => stopDeployment(toggleStartBtn.name);
+			console.log(toggleStartBtn.onclick);
+
 			break;
 		case "paused":
 			restartBtn.disabled = false;
@@ -207,7 +212,7 @@ function deploymentChangeState(node, state) {
 			togglePauseBtn.innerHTML = "Unpause";
 			togglePauseBtn.onclick = () => unpauseDeployment(toggleStartBtn.name);
 			toggleStartBtn.innerHTML = "Stop";
-			togglePauseBtn.onclick = () => stopDeployment(toggleStartBtn.name);
+			toggleStartBtn.onclick = () => stopDeployment(toggleStartBtn.name);
 			break;
 	}
 }

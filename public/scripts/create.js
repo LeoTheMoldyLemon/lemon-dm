@@ -31,6 +31,7 @@ async function build() {
 	const buildData = {
 		name: document.getElementById("name").value,
 		branch: document.getElementById("branch").value,
+		args: document.getElementById("args").value,
 	};
 	await socket.emit("createBuild", buildData);
 }
